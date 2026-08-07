@@ -1,0 +1,431 @@
+/* ===== 1. Design Tokens ===== */
+:root {
+    --bg: #14181d;
+    --bg-alt: #1b2027;
+    --panel: #1f252c;
+    --border: #2b323b;
+    --text: #e6ecf0;
+    --text-muted: #8a94a3;
+    --turquoise: #2dd4bf;
+    --turquoise-dim: #1a8c7f;
+    --turquoise-glow: rgba(45, 212, 191, 0.25);
+    --radius: 14px;
+}
+
+/* ===== 2. Reset & Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", "Sarabun", sans-serif;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; }
+
+/* ===== 3. Header ===== */
+header {
+    border-bottom: 1px solid var(--border);
+    background-color: rgba(20, 24, 29, 0.85);
+    position: sticky;
+    top: 0;
+}
+
+.header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand { display: flex; align-items: center; gap: 8px; }
+
+.brand-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--turquoise);
+    box-shadow: 0 0 12px var(--turquoise-glow);
+}
+
+.brand h1 { font-size: 22px; font-weight: 700; }
+.brand-accent { color: var(--turquoise); }
+
+/* ===== Role Tag ===== */
+.role-tag {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--turquoise);
+    background: rgba(45, 212, 191, 0.1);
+    border: 1px solid var(--turquoise-dim);
+    padding: 6px 14px;
+    border-radius: 999px;
+}
+
+.role-tag-teacher {
+    color: #eab308;
+    background: rgba(234, 179, 8, 0.1);
+    border-color: #a17a08;
+}
+
+/* ===== 4. Main / Page Header ===== */
+main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
+
+.page-header { margin-bottom: 32px; }
+
+.eyebrow {
+    color: var(--turquoise);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.page-header h2 { font-size: 32px; font-weight: 800; }
+
+.hero-desc {
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+/* ===== 5. Panels (การ์ดแต่ละหมวด) ===== */
+.panel {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 24px;
+    max-width: 760px;
+}
+
+.panel-danger {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* ===== 6. ฟอร์มข้อมูลวิชา ===== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.form-field input,
+.form-field select {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 15px;
+}
+
+.form-field input:disabled {
+    opacity: 0.6;
+}
+
+.save-btn {
+    grid-column: 1 / -1;
+    background: var(--turquoise);
+    color: #0b1210;
+    border: none;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+/* ===== 7. เพิ่มนักเรียน ===== */
+.add-student-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.add-student-row input {
+    flex: 1;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 15px;
+}
+
+.add-student-row button {
+    background: var(--turquoise);
+    color: #0b1210;
+    border: none;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* ===== 8. ตาราง (นักเรียน / เช็คชื่อ) ===== */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 12px 16px;
+    font-size: 15px;
+    text-align: left;
+}
+
+.schedule-table th {
+    background: #232a32;
+    color: var(--turquoise);
+    font-weight: 700;
+}
+
+.schedule-table td {
+    border-top: 1px solid var(--border);
+    color: var(--text);
+}
+
+.schedule-table tr:hover td {
+    background: rgba(45, 212, 191, 0.05);
+}
+
+/* ===== 9. ปุ่มแก้ไข / ลบ นักเรียน ===== */
+.edit-btn, .delete-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+    font-weight: 600;
+}
+
+.edit-btn {
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--turquoise);
+}
+
+.delete-btn {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* ===== 10. ปุ่มมาร์คสถานะเช็คชื่อ ===== */
+.mark-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+    font-weight: 600;
+}
+
+.mark-present {
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--turquoise);
+}
+
+.mark-late {
+    background: rgba(234, 179, 8, 0.15);
+    color: #eab308;
+}
+
+.mark-absent {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* ===== 11. Badge แสดงสถานะ ===== */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-present { background: rgba(45, 212, 191, 0.15); color: var(--turquoise); }
+.status-late     { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+.status-absent   { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.status-none     { background: rgba(138, 148, 163, 0.15); color: var(--text-muted); }
+
+/* ===== 12. ปุ่มรีเซ็ตข้อมูล ===== */
+.reset-btn {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.reset-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+/* ===== 13. Footer ===== */
+footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* ===== 14. Responsive ===== */
+@media (max-width: 640px) {
+    .header-inner { flex-direction: column; gap: 12px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .add-student-row { flex-direction: column; }
+    .schedule-table { font-size: 13px; }
+    .schedule-table th, .schedule-table td { padding: 10px 8px; }
+    .mark-btn, .edit-btn, .delete-btn { margin-bottom: 4px; }
+}
+
+/* ===== Nav (เมนูหน้าหลัก / จัดการนักเรียน) ===== */
+nav {
+    display: flex;
+    gap: 24px;
+}
+
+nav a {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 4px;
+    position: relative;
+}
+
+nav a:hover {
+    color: var(--text);
+}
+
+nav a.active {
+    color: var(--turquoise);
+}
+
+nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: var(--turquoise);
+    border-radius: 2px;
+}
+
+/* ===== Class Info (ใช้ในหน้า Home) ===== */
+.class-info {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+}
+
+.info-label {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.info-value {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--turquoise);
+}
+
+/* ===== Stats Grid (ใช้ในหน้า Home) ===== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+.stat-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 10px;
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--turquoise);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ===== ปุ่มทางลัด (CTA) ===== */
+.panel-cta {
+    border-color: var(--turquoise-dim);
+}
+
+.cta-btn {
+    display: inline-block;
+    background: var(--turquoise);
+    color: #0b1210;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.cta-btn:hover {
+    opacity: 0.9;
+}
+
+/* ===== Responsive เพิ่มเติม ===== */
+@media (max-width: 640px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .class-info {
+        flex-direction: column;
+    }
+}

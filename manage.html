@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontime | จัดการนักเรียน</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <h1>Ontime<span class="brand-accent">.</span></h1>
+            </div>
+            <nav>
+                <a href="index.html">หน้าหลัก</a>
+                <a href="manage.html" class="active">จัดการนักเรียน</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="page-header">
+            <p class="eyebrow">ระบบจัดการชั้นเรียน</p>
+            <h2>แดชบอร์ดคุณครู</h2>
+        </section>
+
+        <!-- ===== แก้ไขข้อมูลวิชา ===== -->
+        <section class="panel">
+            <h3 class="section-title">ข้อมูลวิชาที่สอน</h3>
+            <form id="subjectForm" class="form-grid">
+                <div class="form-field">
+                    <label>ชั้นเรียน</label>
+                    <input type="text" id="fClassName" value="ป.6" disabled>
+                </div>
+                <div class="form-field">
+                    <label>ชื่อวิชา</label>
+                    <input type="text" id="fSubjectName" required>
+                </div>
+                <div class="form-field">
+                    <label>วันที่สอน</label>
+                    <select id="fDay">
+                        <option>จันทร์</option>
+                        <option>อังคาร</option>
+                        <option>พุธ</option>
+                        <option>พฤหัสบดี</option>
+                        <option>ศุกร์</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>คาบที่</label>
+                    <input type="text" id="fPeriod" placeholder="เช่น คาบที่ 1">
+                </div>
+                <div class="form-field">
+                    <label>เวลาเรียน</label>
+                    <input type="text" id="fTime" placeholder="เช่น 08:30 - 09:20">
+                </div>
+                <button type="submit" class="save-btn">บันทึกข้อมูลวิชา</button>
+            </form>
+        </section>
+
+        <!-- ===== จัดการรายชื่อนักเรียน ===== -->
+        <section class="panel">
+            <h3 class="section-title">รายชื่อนักเรียนชั้น ป.6</h3>
+
+            <div class="add-student-row">
+                <input type="text" id="newStudentName" placeholder="พิมพ์ชื่อ-นามสกุลนักเรียน">
+                <button id="addStudentBtn">+ เพิ่มนักเรียน</button>
+            </div>
+
+            <table class="schedule-table" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>เลขที่</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody"></tbody>
+            </table>
+        </section>
+
+        <!-- ===== เช็คชื่อวันนี้ (ครูกดเอง) ===== -->
+        <section class="panel">
+            <h3 class="section-title">เช็คชื่อวันนี้</h3>
+            <p class="hero-desc" style="margin-bottom:16px;">
+                กดสถานะของนักเรียนแต่ละคนเพื่อบันทึกการเช็คชื่อวันนี้
+            </p>
+
+            <table class="schedule-table" id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>สถานะ</th>
+                        <th>เวลา</th>
+                        <th>บันทึกสถานะ</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTableBody"></tbody>
+            </table>
+        </section>
+
+        <!-- ===== รีเซ็ตข้อมูล ===== -->
+        <section class="panel panel-danger">
+            <h3 class="section-title">ตั้งค่าระบบ</h3>
+            <p class="hero-desc" style="margin-bottom:16px;">
+                ล้างข้อมูลทั้งหมด (วิชา / รายชื่อนักเรียน / ประวัติเช็คชื่อ) แล้วเริ่มต้นใหม่
+            </p>
+            <button id="resetBtn" class="reset-btn">รีเซ็ตข้อมูลทั้งหมด</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Ontime — ระบบเช็คชื่อออนไลน์</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

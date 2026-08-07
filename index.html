@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontime | หน้าหลัก</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <h1>Ontime<span class="brand-accent">.</span></h1>
+            </div>
+            <nav>
+                <a href="index.html" class="active">หน้าหลัก</a>
+                <a href="manage.html">จัดการนักเรียน</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="page-header">
+            <p class="eyebrow">ภาพรวมระบบ</p>
+            <h2>สรุปข้อมูลวันนี้</h2>
+        </section>
+
+        <!-- ===== ข้อมูลวิชาที่สอน (แสดงอย่างเดียว) ===== -->
+        <section class="panel">
+            <h3 class="section-title">วิชาที่สอนวันนี้</h3>
+            <div class="class-info">
+                <div class="info-item">
+                    <span class="info-label">ชั้นเรียน</span>
+                    <span class="info-value" id="infoClass">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">วิชา</span>
+                    <span class="info-value" id="infoSubject">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">วัน / คาบ</span>
+                    <span class="info-value" id="infoDayPeriod">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">เวลาเรียน</span>
+                    <span class="info-value" id="infoTime">--</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== สรุปการเช็คชื่อวันนี้ ===== -->
+        <section class="panel">
+            <h3 class="section-title">สรุปการเช็คชื่อวันนี้</h3>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="statTotal">0</span>
+                    <span class="stat-label">นักเรียนทั้งหมด</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="statPresent">0</span>
+                    <span class="stat-label">มาเรียน</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="statLate">0</span>
+                    <span class="stat-label">มาสาย</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="statAbsent">0</span>
+                    <span class="stat-label">ขาดเรียน</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="statPending">0</span>
+                    <span class="stat-label">ยังไม่เช็คชื่อ</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ทางลัดไปหน้าจัดการ ===== -->
+        <section class="panel panel-cta">
+            <h3 class="section-title">จัดการระบบ</h3>
+            <p class="hero-desc" style="margin-bottom:16px;">
+                แก้ไขข้อมูลวิชา เพิ่ม/ลบรายชื่อนักเรียน และเช็คชื่อประจำวัน
+            </p>
+            <a href="manage.html" class="cta-btn">ไปหน้าจัดการนักเรียน →</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Ontime — ระบบเช็คชื่อออนไลน์</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
