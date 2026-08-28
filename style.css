@@ -24,7 +24,7 @@ body {
 
 a { text-decoration: none; }
 
-/* ===== 3. Header ===== */
+/* ===== 3. Header & Nav ===== */
 header {
     border-bottom: 1px solid var(--border);
     background-color: rgba(20, 24, 29, 0.85);
@@ -39,6 +39,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .brand { display: flex; align-items: center; gap: 8px; }
@@ -53,21 +55,45 @@ header {
 .brand h1 { font-size: 22px; font-weight: 700; }
 .brand-accent { color: var(--turquoise); }
 
-/* ===== Role Tag ===== */
-.role-tag {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--turquoise);
-    background: rgba(45, 212, 191, 0.1);
-    border: 1px solid var(--turquoise-dim);
-    padding: 6px 14px;
-    border-radius: 999px;
+nav { display: flex; gap: 24px; }
+
+nav a {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 4px;
+    position: relative;
 }
 
-.role-tag-teacher {
-    color: #eab308;
-    background: rgba(234, 179, 8, 0.1);
-    border-color: #a17a08;
+nav a:hover { color: var(--text); }
+nav a.active { color: var(--turquoise); }
+
+nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: var(--turquoise);
+    border-radius: 2px;
+}
+
+/* ===== ปุ่มออกจากระบบ ===== */
+.logout-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.4);
 }
 
 /* ===== 4. Main / Page Header ===== */
@@ -90,7 +116,7 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     font-size: 16px;
 }
 
-/* ===== 5. Panels (การ์ดแต่ละหมวด) ===== */
+/* ===== 5. Panels ===== */
 .panel {
     background: var(--bg-alt);
     border: 1px solid var(--border);
@@ -100,9 +126,8 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     max-width: 760px;
 }
 
-.panel-danger {
-    border-color: rgba(239, 68, 68, 0.3);
-}
+.panel-danger { border-color: rgba(239, 68, 68, 0.3); }
+.panel-cta { border-color: var(--turquoise-dim); }
 
 .section-title {
     font-size: 20px;
@@ -110,23 +135,15 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     margin-bottom: 16px;
 }
 
-/* ===== 6. ฟอร์มข้อมูลวิชา ===== */
+/* ===== 6. ฟอร์มข้อมูลวิชา / ล็อกอิน ===== */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
-.form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.form-field label {
-    font-size: 14px;
-    color: var(--text-muted);
-}
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label { font-size: 14px; color: var(--text-muted); }
 
 .form-field input,
 .form-field select {
@@ -138,9 +155,7 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     font-size: 15px;
 }
 
-.form-field input:disabled {
-    opacity: 0.6;
-}
+.form-field input:disabled { opacity: 0.6; }
 
 .save-btn {
     grid-column: 1 / -1;
@@ -183,7 +198,41 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     white-space: nowrap;
 }
 
-/* ===== 8. ตาราง (นักเรียน / เช็คชื่อ) ===== */
+/* ===== กล่องแจ้งเตือน ===== */
+.feedback-box {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: all 0.25s ease;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 14px;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+.feedback-box.show {
+    max-height: 50px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.feedback-success {
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--turquoise);
+    border: 1px solid var(--turquoise-dim);
+}
+
+.feedback-error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* ===== 8. ตาราง ===== */
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
@@ -215,7 +264,7 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     background: rgba(45, 212, 191, 0.05);
 }
 
-/* ===== 9. ปุ่มแก้ไข / ลบ นักเรียน ===== */
+/* ===== 9. ปุ่มแก้ไข / ลบ ===== */
 .edit-btn, .delete-btn {
     border: none;
     padding: 6px 12px;
@@ -226,15 +275,8 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     font-weight: 600;
 }
 
-.edit-btn {
-    background: rgba(45, 212, 191, 0.15);
-    color: var(--turquoise);
-}
-
-.delete-btn {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-}
+.edit-btn { background: rgba(45, 212, 191, 0.15); color: var(--turquoise); }
+.delete-btn { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
 
 /* ===== 10. ปุ่มมาร์คสถานะเช็คชื่อ ===== */
 .mark-btn {
@@ -247,22 +289,11 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     font-weight: 600;
 }
 
-.mark-present {
-    background: rgba(45, 212, 191, 0.15);
-    color: var(--turquoise);
-}
+.mark-present { background: rgba(45, 212, 191, 0.15); color: var(--turquoise); }
+.mark-late { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+.mark-absent { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
 
-.mark-late {
-    background: rgba(234, 179, 8, 0.15);
-    color: #eab308;
-}
-
-.mark-absent {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-}
-
-/* ===== 11. Badge แสดงสถานะ ===== */
+/* ===== 11. Badge สถานะ ===== */
 .status-badge {
     padding: 4px 10px;
     border-radius: 999px;
@@ -275,7 +306,7 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
 .status-absent   { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
 .status-none     { background: rgba(138, 148, 163, 0.15); color: var(--text-muted); }
 
-/* ===== 12. ปุ่มรีเซ็ตข้อมูล ===== */
+/* ===== 12. ปุ่มรีเซ็ต ===== */
 .reset-btn {
     background: rgba(239, 68, 68, 0.15);
     color: #ef4444;
@@ -287,63 +318,9 @@ main { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; }
     font-size: 15px;
 }
 
-.reset-btn:hover {
-    background: rgba(239, 68, 68, 0.25);
-}
+.reset-btn:hover { background: rgba(239, 68, 68, 0.25); }
 
-/* ===== 13. Footer ===== */
-footer {
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 24px;
-    color: var(--text-muted);
-    font-size: 13px;
-}
-
-/* ===== 14. Responsive ===== */
-@media (max-width: 640px) {
-    .header-inner { flex-direction: column; gap: 12px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .add-student-row { flex-direction: column; }
-    .schedule-table { font-size: 13px; }
-    .schedule-table th, .schedule-table td { padding: 10px 8px; }
-    .mark-btn, .edit-btn, .delete-btn { margin-bottom: 4px; }
-}
-
-/* ===== Nav (เมนูหน้าหลัก / จัดการนักเรียน) ===== */
-nav {
-    display: flex;
-    gap: 24px;
-}
-
-nav a {
-    color: var(--text-muted);
-    font-size: 15px;
-    font-weight: 600;
-    padding-bottom: 4px;
-    position: relative;
-}
-
-nav a:hover {
-    color: var(--text);
-}
-
-nav a.active {
-    color: var(--turquoise);
-}
-
-nav a.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 2px;
-    background: var(--turquoise);
-    border-radius: 2px;
-}
-
-/* ===== Class Info (ใช้ในหน้า Home) ===== */
+/* ===== 13. Class Info (หน้า Home) ===== */
 .class-info {
     display: flex;
     gap: 16px;
@@ -361,18 +338,10 @@ nav a.active::after {
     min-width: 140px;
 }
 
-.info-label {
-    font-size: 13px;
-    color: var(--text-muted);
-}
+.info-label { font-size: 13px; color: var(--text-muted); }
+.info-value { font-size: 17px; font-weight: 700; color: var(--turquoise); }
 
-.info-value {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--turquoise);
-}
-
-/* ===== Stats Grid (ใช้ในหน้า Home) ===== */
+/* ===== 14. Stats Grid (หน้า Home) ===== */
 .stats {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -395,16 +364,9 @@ nav a.active::after {
     margin-bottom: 4px;
 }
 
-.stat-label {
-    font-size: 13px;
-    color: var(--text-muted);
-}
+.stat-label { font-size: 13px; color: var(--text-muted); }
 
-/* ===== ปุ่มทางลัด (CTA) ===== */
-.panel-cta {
-    border-color: var(--turquoise-dim);
-}
-
+/* ===== 15. ปุ่ม CTA ===== */
 .cta-btn {
     display: inline-block;
     background: var(--turquoise);
@@ -416,16 +378,213 @@ nav a.active::after {
     font-size: 15px;
 }
 
-.cta-btn:hover {
-    opacity: 0.9;
+.cta-btn:hover { opacity: 0.9; }
+
+/* ===== 16. หน้า Login ===== */
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
 
-/* ===== Responsive เพิ่มเติม ===== */
+.login-box {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-btn {
+    background: var(--turquoise);
+    color: #0b1210;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.login-btn:hover { opacity: 0.9; }
+
+/* ===== 17. Footer ===== */
+footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* ===== 18. Responsive ===== */
 @media (max-width: 640px) {
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .class-info {
-        flex-direction: column;
-    }
+    .header-inner { flex-direction: column; gap: 12px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .add-student-row { flex-direction: column; }
+    .schedule-table { font-size: 13px; }
+    .schedule-table th, .schedule-table td { padding: 10px 8px; }
+    .mark-btn, .edit-btn, .delete-btn { margin-bottom: 4px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .class-info { flex-direction: column; }
+}
+
+/* ===== 16. หน้า Login (ปรับปรุงใหม่ให้สวยขึ้น) ===== */
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(45, 212, 191, 0.10), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(45, 212, 191, 0.08), transparent 40%),
+        var(--bg);
+}
+
+/* จุดแสงลอยเบลอ ๆ ด้านหลังการ์ด */
+.login-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.18), transparent 70%);
+    border-radius: 50%;
+    filter: blur(10px);
+    animation: floatGlow 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+}
+
+.login-box {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--panel) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 44px 36px 32px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(45, 212, 191, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    animation: loginAppear 0.5s ease;
+}
+
+@keyframes loginAppear {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.login-box.shake {
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* ไอคอนกุญแจวงกลมด้านบน */
+.login-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--turquoise), #14b8a6);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px var(--turquoise-glow);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.login-form .form-field label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.login-form .form-field input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.login-form .form-field input:hover {
+    border-color: rgba(45, 212, 191, 0.3);
+}
+
+.login-form .form-field input:focus {
+    outline: none;
+    border-color: var(--turquoise);
+    background: rgba(45, 212, 191, 0.04);
+    box-shadow: 0 0 0 4px var(--turquoise-glow);
+}
+
+.login-btn {
+    background: linear-gradient(135deg, var(--turquoise), #14b8a6);
+    color: #0b1210;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 0 8px 24px var(--turquoise-glow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px var(--turquoise-glow);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.login-hint {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
 }

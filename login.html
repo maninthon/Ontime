@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontime | เข้าสู่ระบบ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-wrap">
+        <div class="login-glow"></div>
+
+        <div class="login-box">
+            <div class="login-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15C13.1046 15 14 14.1046 14 13C14 11.8954 13.1046 11 12 11C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15Z" fill="#0b1210"/>
+                    <path d="M6 10V8C6 4.68629 8.68629 2 12 2C15.3137 2 18 4.68629 18 8V10" stroke="#0b1210" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="4" y="10" width="16" height="12" rx="3" fill="#0b1210"/>
+                </svg>
+            </div>
+
+            <div class="brand" style="justify-content:center; margin-bottom: 6px;">
+                <span class="brand-dot"></span>
+                <h1>Ontime<span class="brand-accent">.</span></h1>
+            </div>
+            <p class="hero-desc" style="text-align:center; margin-bottom:32px;">
+                เข้าสู่ระบบสำหรับคุณครู
+            </p>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-field">
+                    <label>ชื่อผู้ใช้</label>
+                    <input type="text" id="username" placeholder="กรอกชื่อผู้ใช้" required autocomplete="username">
+                </div>
+                <div class="form-field">
+                    <label>รหัสผ่าน</label>
+                    <input type="password" id="password" placeholder="กรอกรหัสผ่าน" required autocomplete="current-password">
+                </div>
+
+                <div id="loginError" class="feedback-box feedback-error"></div>
+
+                <button type="submit" class="login-btn">เข้าสู่ระบบ</button>
+            </form>
+
+            <p class="login-hint">ระบบสำหรับคุณครูเท่านั้น • ป.6</p>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const loginError = document.getElementById("loginError");
+        const loginBtn = document.querySelector(".login-btn");
+
+        const VALID_USERNAME = "ครู";
+        const VALID_PASSWORD = "ontime2569";
+
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+                loginBtn.textContent = "กำลังเข้าสู่ระบบ...";
+                loginBtn.disabled = true;
+                sessionStorage.setItem("ontime_logged_in", "true");
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 400);
+            } else {
+                loginError.textContent = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+                loginError.classList.add("show");
+
+                document.querySelector(".login-box").classList.add("shake");
+                setTimeout(() => {
+                    document.querySelector(".login-box").classList.remove("shake");
+                }, 400);
+            }
+        });
+    </script>
+</body>
+</html>

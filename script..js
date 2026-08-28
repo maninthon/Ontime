@@ -1,6 +1,12 @@
+/* ===== ไฟล์นี้ใช้กับ manage.html เท่านั้น (ต้องโหลดหลัง data.js) ===== */
+
+/* ===== เช็คว่าล็อกอินหรือยัง ถ้ายังไม่ล็อกอินให้เด้งกลับไปหน้า login ===== */
+if (sessionStorage.getItem("ontime_logged_in") !== "true") {
+    window.location.href = "login.html";
+}
+
 initData();
 
-/* ===== อ้างอิง element ===== */
 const subjectForm = document.getElementById("subjectForm");
 const fSubjectName = document.getElementById("fSubjectName");
 const fDay = document.getElementById("fDay");
@@ -9,11 +15,11 @@ const fTime = document.getElementById("fTime");
 
 const newStudentName = document.getElementById("newStudentName");
 const addStudentBtn = document.getElementById("addStudentBtn");
+const addFeedback = document.getElementById("addStudentFeedback");
 const studentTableBody = document.getElementById("studentTableBody");
 const attendanceTableBody = document.getElementById("attendanceTableBody");
 const resetBtn = document.getElementById("resetBtn");
 
-/* ===== โหลดข้อมูลวิชาลงฟอร์ม ===== */
 function loadSubjectForm() {
     const subject = getSubject();
     fSubjectName.value = subject.subjectName;
@@ -34,7 +40,6 @@ subjectForm.addEventListener("submit", function (e) {
     alert("บันทึกข้อมูลวิชาเรียบร้อยแล้ว");
 });
 
-/* ===== แสดงรายชื่อนักเรียน (สำหรับจัดการชื่อ) ===== */
 function renderStudentTable() {
     const students = getStudents();
     studentTableBody.innerHTML = "";
@@ -67,6 +72,7 @@ function renderStudentTable() {
                 editStudent(id, newName.trim());
                 renderStudentTable();
                 renderAttendanceTable();
+                showFeedback(`แก้ไขชื่อเป็น "${newName.trim()}" เรียบร้อยแล้ว ✓`, "success");
             }
         });
     });
@@ -78,32 +84,45 @@ function renderStudentTable() {
                 deleteStudent(id);
                 renderStudentTable();
                 renderAttendanceTable();
+                showFeedback("ลบรายชื่อนักเรียนเรียบร้อยแล้ว", "success");
             }
         });
     });
 }
 
-/* ===== เพิ่มนักเรียนใหม่ ===== */
 addStudentBtn.addEventListener("click", function () {
     const name = newStudentName.value.trim();
+
     if (name === "") {
-        alert("กรุณาพิมพ์ชื่อนักเรียนก่อน");
+        showFeedback("กรุณาพิมพ์ชื่อนักเรียนก่อน", "error");
         return;
     }
+
     addStudent(name);
     newStudentName.value = "";
     renderStudentTable();
     renderAttendanceTable();
+
+    showFeedback(`เพิ่ม "${name}" เข้าระบบเรียบร้อยแล้ว ✓`, "success");
+    newStudentName.focus();
 });
 
-// กด Enter ในช่องกรอกชื่อ ก็เพิ่มนักเรียนได้เลย
 newStudentName.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         addStudentBtn.click();
     }
 });
 
-/* ===== ตารางเช็คชื่อวันนี้ (ครูกดสถานะเอง) ===== */
+function showFeedback(message, type) {
+    addFeedback.textContent = message;
+    addFeedback.className = `feedback-box show feedback-${type}`;
+
+    clearTimeout(window._feedbackTimeout);
+    window._feedbackTimeout = setTimeout(() => {
+        addFeedback.classList.remove("show");
+    }, 2500);
+}
+
 function renderAttendanceTable() {
     const students = getStudents();
     attendanceTableBody.innerHTML = "";
@@ -153,7 +172,6 @@ function statusText(status) {
     return "ยังไม่เช็คชื่อ";
 }
 
-/* ===== รีเซ็ตข้อมูลทั้งหมด ===== */
 resetBtn.addEventListener("click", function () {
     const confirmed = confirm("ต้องการล้างข้อมูลทั้งหมดและเริ่มต้นใหม่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้");
     if (confirmed) {
@@ -165,7 +183,14 @@ resetBtn.addEventListener("click", function () {
     }
 });
 
-/* ===== เริ่มต้นแสดงผล ===== */
+/* ===== ปุ่มออกจากระบบ ===== */
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    if (confirm("ต้องการออกจากระบบหรือไม่?")) {
+        sessionStorage.removeItem("ontime_logged_in");
+        window.location.href = "login.html";
+    }
+});
+
 loadSubjectForm();
 renderStudentTable();
 renderAttendanceTable();

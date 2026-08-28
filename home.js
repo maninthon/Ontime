@@ -1,6 +1,12 @@
+/* ===== ไฟล์นี้ใช้กับ index.html เท่านั้น (ต้องโหลดหลัง data.js) ===== */
+
+/* ===== เช็คว่าล็อกอินหรือยัง ถ้ายังไม่ล็อกอินให้เด้งกลับไปหน้า login ===== */
+if (sessionStorage.getItem("ontime_logged_in") !== "true") {
+    window.location.href = "login.html";
+}
+
 initData();
 
-/* ===== แสดงข้อมูลวิชาที่สอน ===== */
 function renderSubjectSummary() {
     const subject = getSubject();
     document.getElementById("infoClass").textContent = subject.className;
@@ -9,7 +15,6 @@ function renderSubjectSummary() {
     document.getElementById("infoTime").textContent = subject.time;
 }
 
-/* ===== แสดงสรุปตัวเลขการเช็คชื่อวันนี้ ===== */
 function renderStatsSummary() {
     const students = getStudents();
     const todayRecords = getTodayAttendance();
@@ -26,6 +31,14 @@ function renderStatsSummary() {
     document.getElementById("statAbsent").textContent = absent;
     document.getElementById("statPending").textContent = pending;
 }
+
+/* ===== ปุ่มออกจากระบบ ===== */
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    if (confirm("ต้องการออกจากระบบหรือไม่?")) {
+        sessionStorage.removeItem("ontime_logged_in");
+        window.location.href = "login.html";
+    }
+});
 
 renderSubjectSummary();
 renderStatsSummary();

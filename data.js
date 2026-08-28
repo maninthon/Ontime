@@ -1,5 +1,6 @@
 /* ===============================================
    DATA LAYER — จัดการข้อมูลทั้งหมดผ่าน localStorage
+   ไฟล์นี้ต้องถูกโหลดก่อน home.js และ script.js เสมอ
    =============================================== */
 
 const STORAGE_KEYS = {
@@ -23,22 +24,24 @@ function initData() {
 
     if (!localStorage.getItem(STORAGE_KEYS.students)) {
         const defaultStudents = [
-            { id: 1,  name: "เด็กชายสมชาย ใจดี" },
-            { id: 2,  name: "เด็กหญิงสมหญิง รักเรียน" },
-            { id: 3,  name: "เด็กชายวิชัย ขยันดี" },
-            { id: 4,  name: "เด็กหญิงมาลี สุขใส" },
-            { id: 5,  name: "เด็กชายอนุชา เก่งกล้า" },
-            { id: 6,  name: "เด็กหญิงพรทิพย์ แสงทอง" },
-            { id: 7,  name: "เด็กชายธนกร ศรีสุข" },
-            { id: 8,  name: "เด็กหญิงกมลชนก มีสุข" },
-            { id: 9,  name: "เด็กชายภูวนัย ตั้งใจดี" },
-            { id: 10, name: "เด็กหญิงชุติมา ใสสะอาด" }
+            { id: 1, name: "เด็กชายกันตพงศ์ วงศ์สุวรรณ" },
+            { id: 2, name: "เด็กหญิงปาริชาติ บุญมี" },
+            { id: 3, name: "เด็กชายนพรุจ แก้วมณี" },
+            { id: 4, name: "เด็กหญิงศศิธร ทองคำ" },
+            { id: 5, name: "เด็กชายกฤษฎา รุ่งเรือง" }
         ];
         localStorage.setItem(STORAGE_KEYS.students, JSON.stringify(defaultStudents));
     }
 
     if (!localStorage.getItem(STORAGE_KEYS.attendance)) {
-        localStorage.setItem(STORAGE_KEYS.attendance, JSON.stringify([]));
+        const today = getTodayKey();
+        const defaultAttendance = [
+            { studentId: 1, studentName: "เด็กชายกันตพงศ์ วงศ์สุวรรณ", date: today, time: "08:28:10", status: "present" },
+            { studentId: 2, studentName: "เด็กหญิงปาริชาติ บุญมี",       date: today, time: "08:29:45", status: "present" },
+            { studentId: 3, studentName: "เด็กชายนพรุจ แก้วมณี",         date: today, time: "08:35:02", status: "late" },
+            { studentId: 4, studentName: "เด็กหญิงศศิธร ทองคำ",          date: today, time: "08:40:00", status: "absent" }
+        ];
+        localStorage.setItem(STORAGE_KEYS.attendance, JSON.stringify(defaultAttendance));
     }
 }
 
@@ -83,7 +86,7 @@ function deleteStudent(id) {
     saveStudents(students);
 }
 
-/* ----- การเช็คชื่อ (ครูเป็นคนกดบันทึกให้นักเรียน) ----- */
+/* ----- การเช็คชื่อ ----- */
 function getTodayKey() {
     const now = new Date();
     return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
@@ -97,7 +100,6 @@ function saveAttendance(records) {
     localStorage.setItem(STORAGE_KEYS.attendance, JSON.stringify(records));
 }
 
-/* บันทึก/อัปเดตสถานะของนักเรียนคนหนึ่งสำหรับวันนี้ */
 function markAttendance(studentId, studentName, status) {
     const records = getAttendance();
     const today = getTodayKey();
